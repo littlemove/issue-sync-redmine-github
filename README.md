@@ -97,6 +97,10 @@ NEWRELIC_API_KEY # NewRelic API KEY
 
 ### Running in Development
 
+- Requirements:
+* vagrant
+* ansible
+
 - Build the Box:
 ~~~console
 vagrant up --provision
