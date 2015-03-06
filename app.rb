@@ -12,42 +12,43 @@ require './models/issue'
 @@mapping = Mapping.new
 
 get '/' do
-	content_type :json
-	Issue.order("ID DESC").all.to_json
+  content_type :json
+  Issue.order("ID DESC").all.to_json
 end
 
 post '/redmine_hook' do
-	data = JSON.parse request.body.read
-	redmine = RedmineIssue.new(data)
 
-	issue = Issue.where(redmine_id: redmine.id).first
+  data = JSON.parse request.body.read
+  redmine = RedmineIssue.new(data)
 
-	if issue.present?
-		## Update on Github if exist
-		issue.update_on_github(redmine)
-	else
-		## Only create Issue on Github when status is validated
-		if redmine.open?
-			issue = Issue.create(redmine_id: redmine.id)
-			issue.create_on_github(redmine)
-		end
-	end
+  issue = Issue.where(redmine_id: redmine.id).first
 
-	"OK"
+  if issue.present?
+    ## Update on Github if exist
+    issue.update_on_github(redmine)
+  else
+    ## Only create Issue on Github when status is validated
+    if redmine.open?
+      issue = Issue.create(redmine_id: redmine.id)
+      issue.create_on_github(redmine)
+    end
+  end
+
+  "OK"
 end
 
 post '/github_hook' do
-	data = JSON.parse(request.body.read)
-	github = GithubIssue.new(data)
+  data = JSON.parse(request.body.read)
+  github = GithubIssue.new(data)
 
-	issue = Issue.where(github_id: github.id).first
+  issue = Issue.where(github_id: github.id).first
 
-	## Issue already created on Redmine
-	if issue.present?
-		issue.update_on_redmine(github)
-	end
+  ## Issue already created on Redmine
+  if issue.present?
+    issue.update_on_redmine(github)
+  end
 
-	"OK"
+  "OK"
 end
 
 after do
