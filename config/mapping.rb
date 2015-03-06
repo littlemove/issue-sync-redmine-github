@@ -10,20 +10,21 @@ class Mapping
       1 => "Low",
       2 => "Normal",
       3 => "High",
-      4 => "Urgent"
+      4 => "Urgent",
+      5 => "Inmediate"
     }
   end
 
   def assignee
     {
-      1 => "gmontard"
+      2 => "littlemove"
     }
   end
 
   def status
     {
-      1 => "closed",
-      2 => "open"
+      1 => "open",
+      5 => "closed"
     }
   end
 

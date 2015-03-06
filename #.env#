@@ -1,0 +1,11 @@
+DATABASE_URL=postgres://localhost/issue-sync-redmine-github
+DATABASE_NAME=issue-sync-redmine-github
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=
+DATABASE_HOST=localhost
+REDMINE_URL=http://10.0.2.2:4000  # Your Redmine Public base URL
+REDMINE_API_KEY=1ca8ea0acb3003ff95db7f3ae179b568e1d33e7f # Your Redmine API Key is available on your account page (*/my/account*)
+GITHUB_API_KEY=547dc4e88022c4abf4d44dcef7e7e7eba10e0270  # Your Github access token
+GITHUB_OWNER=littlemove  # Your Github Username
+GITHUB_REPO=  # Your Github project Repo (for ex: *gmontard/issue-sync-redmine-github*)
+NEWRELIC_API_KEY= # NewRelic API KEY

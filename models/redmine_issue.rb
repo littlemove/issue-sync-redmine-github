@@ -1,10 +1,11 @@
 class RedmineIssue
 
-  attr_accessor :issue
+  attr_accessor :issue, :github_repo
 
   def initialize(data)
     @raw_data = data["payload"]
     @issue = api["issue"]
+    @github_repo =  data["github_repo"]
   end
 
   def id

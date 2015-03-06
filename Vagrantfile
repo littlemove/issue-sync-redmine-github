@@ -16,6 +16,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network "public_network", bridge: "en0: Ethernet"
 
+  config.vm.network :forwarded_port, host: 3000, guest: 3000
+
   config.ssh.forward_agent = true
   #config.ssh.private_key_path = "~/.ssh/id_rsa"
 

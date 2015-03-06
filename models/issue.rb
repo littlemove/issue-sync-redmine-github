@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
 
-  validates_uniqueness_of :redmine_id, :github_id, :allow_nil => true
+  validates_uniqueness_of :redmine_id, :github_id, :github_repo, :allow_nil => true
 
   def update_on_redmine(github)
     options = redmine_options(github)
@@ -9,14 +9,14 @@ class Issue < ActiveRecord::Base
 
   def create_on_github(redmine)
     options = github_options(redmine)
-    res = HTTParty.post("https://api.github.com/repos/#{ENV['GITHUB_REPO']}/issues", options)
+    res = HTTParty.post("https://api.github.com/repos/#{redmine.github_repo}/issues", options)
     self.github_id = res["number"]
     self.save
   end
 
   def update_on_github(redmine)
     options = github_options(redmine)
-    HTTParty.patch("https://api.github.com/repos/#{ENV['GITHUB_REPO']}/issues/#{github_id}", options)
+    HTTParty.patch("https://api.github.com/repos/#{redmine.github_repo}/issues/#{github_id}", options)
   end
 
   private
